@@ -8,20 +8,14 @@ describe "End-to-end test" do
   context "when the sudoku is valid" do
     context "and it is complete" do
       it "returns a string saying so" do
-        file = File.read("spec/fixtures/valid_complete.sudoku")
-
-        result = Validator.validate(file)
-
+        result = Validator.validate("spec/fixtures/valid_complete.sudoku")
         expect(result).to eq "This sudoku is valid."
       end
     end
 
     context "and it is incomplete" do
       it "returns a string saying so" do
-        file = File.read("spec/fixtures/valid_incomplete.sudoku")
-
-        result = Validator.validate(file)
-
+        result = Validator.validate("spec/fixtures/valid_incomplete.sudoku")
         expect(result).to eq "This sudoku is valid, but incomplete."
       end
     end

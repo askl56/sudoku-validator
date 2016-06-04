@@ -1,6 +1,8 @@
 class Validator
   def initialize(puzzle_string)
     @puzzle_string = puzzle_string
+    @grid = Sudoku::FileParse.new(@puzzle_string).grid
+    @complete = @grid.flatten.none? { |e| e == '0' }
   end
 
   def self.validate(puzzle_string)
@@ -8,10 +10,16 @@ class Validator
   end
 
   def validate
-    # Start creating your solution here.
-    #
-    # It's likely that you'll want to have many more classes than this one that
-    # was provided for you. Don't be hesistant to extract new objects (and
-    # write tests for them).
+    validators = [Sudoku::RowValidator, Sudoku::ColumnValidator]
+    if validators.all? { |v| v.new(@grid).valid? }
+      ending = complete?(@grid) ? '.' : ', but incomplete.'
+      puts "This sudoku is valid#{ending}"
+    else
+      puts "This sudoku is invalid."
+    end
+  end
+
+  def complete?(grid)
+    @complete
   end
 end
