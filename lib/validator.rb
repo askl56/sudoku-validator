@@ -10,12 +10,12 @@ class Validator
   end
 
   def validate
-    validators = [Sudoku::RowValidator, Sudoku::ColumnValidator]
+    validators = [Sudoku::RowValidator, Sudoku::ColumnValidator, Sudoku::SubgridValidator]
     if validators.all? { |v| v.new(@grid).valid? }
       ending = complete?(@grid) ? '.' : ', but incomplete.'
-      puts "This sudoku is valid#{ending}"
+      return "This sudoku is valid#{ending}"
     else
-      puts "This sudoku is invalid."
+      return "This sudoku is invalid."
     end
   end
 

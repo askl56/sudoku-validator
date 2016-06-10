@@ -11,11 +11,11 @@ module Sudoku
     private
 
     def has_no_duplicates?
-      pruned_array.all? { |row| row.uniq.size == row.size }
+      converted_zeroes_to_nil.all? { |row| row.uniq.size == row.size }
     end
 
-    def pruned_array
-      @grid.map! do |row|
+    def converted_zeroes_to_nil
+      @grid.map do |row|
         row.select do |i|
           i != '0'
         end
