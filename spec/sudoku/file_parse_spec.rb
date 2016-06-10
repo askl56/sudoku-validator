@@ -1,5 +1,8 @@
 RSpec.describe Sudoku::FileParse do
-  subject { described_class.new('spec/fixtures/valid_complete.sudoku') }
+  subject do
+    file_contents = File.read('spec/fixtures/valid_complete.sudoku')
+    described_class.new(file_contents)
+  end
 
   context "it parses the input correctly" do
     it 'returns parsed input of the correct size for a 9 x 9 grid' do
